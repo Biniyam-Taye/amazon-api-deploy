@@ -7,8 +7,15 @@ dotenv.config();
 const app = express();
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
-app.use(cors());
+app.use(cors({
+  origin: "https://leafy-chimera-f886e1.netlify.app/",
+  credentials: true,
+}));
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running fine!");
+});
+
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
